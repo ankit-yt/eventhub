@@ -381,40 +381,37 @@ export default function AdminDashboard() {
                 <div className="space-y-4">
                   {events.map((event) => (
                     <Card
-                      key={event._id}
-                      className="p-6 border border-border hover:border-primary/50 transition-colors"
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <h3 className="text-lg font-semibold text-foreground mb-2">{event.title}</h3>
-                          <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{event.description}</p>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                            <span className="inline-block px-2 py-1 bg-primary/10 text-primary rounded capitalize text-xs font-semibold">
-                              {event.category}
-                            </span>
-                            <span>{new Date(event.date).toLocaleDateString()}</span>
-                            <span>{event.venue}</span>
-                            <span className="flex items-center gap-1">
-                              <Users className="w-4 h-4" />
-                              {event.attendees.length} attendees
-                            </span>
-                          </div>
-                        </div>
-                        <div className="flex gap-2">
-                          <Link href={`/admin/edit-event/${event._id}`}>
-                            <Button variant="outline" size="sm">
-                              Edit
-                            </Button>
-                          </Link>
-                          <Link href={`/admin/events/${event._id}/attendees`}>
-                            <Button variant="outline" size="sm" className="gap-2 bg-transparent">
-                              <Eye className="w-4 h-4" />
-                              Attendees
-                            </Button>
-                          </Link>
-                        </div>
-                      </div>
-                    </Card>
+  key={event._id}
+  className="p-4 md:p-6 border border-border hover:border-primary/50 transition-colors flex flex-col md:flex-row md:justify-between gap-4"
+>
+  <div className="flex-1">
+    <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{event.title}</h3>
+    <p className="text-sm text-muted-foreground mb-2 line-clamp-3">{event.description}</p>
+    <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+      <span className="inline-block px-2 py-1 bg-primary/10 text-primary rounded capitalize text-xs font-semibold">
+        {event.category}
+      </span>
+      <span>{new Date(event.date).toLocaleDateString()}</span>
+      <span>{event.venue}</span>
+      <span className="flex items-center gap-1">
+        <Users className="w-4 h-4" /> {event.attendees.length} attendees
+      </span>
+    </div>
+  </div>
+  <div className="flex flex-wrap gap-2">
+    <Link href={`/admin/edit-event/${event._id}`}>
+      <Button variant="outline" size="sm" className="flex-1 md:flex-none w-full md:w-auto">
+        Edit
+      </Button>
+    </Link>
+    <Link href={`/admin/events/${event._id}/attendees`}>
+      <Button variant="outline" size="sm" className="flex-1 md:flex-none w-full md:w-auto gap-2">
+        <Eye className="w-4 h-4" /> Attendees
+      </Button>
+    </Link>
+  </div>
+</Card>
+
                   ))}
                 </div>
               )}

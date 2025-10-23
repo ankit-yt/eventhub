@@ -81,20 +81,16 @@ export default function EventDetails() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <p className="text-muted-foreground">Loading event details...</p>
-        </div>
+      <main className="min-h-screen bg-background flex items-center justify-center px-4">
+        <p className="text-muted-foreground text-center text-lg sm:text-xl">Loading event details...</p>
       </main>
     )
   }
 
   if (!event) {
     return (
-      <main className="min-h-screen bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <p className="text-muted-foreground">Event not found</p>
-        </div>
+      <main className="min-h-screen bg-background flex items-center justify-center px-4">
+        <p className="text-muted-foreground text-center text-lg sm:text-xl">Event not found</p>
       </main>
     )
   }
@@ -115,7 +111,7 @@ export default function EventDetails() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
             href="/dashboard"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors text-sm sm:text-base"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Events
@@ -124,92 +120,118 @@ export default function EventDetails() {
       </div>
 
       {/* Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Banner */}
         {event.bannerUrl && (
-          <div className="mb-8 rounded-lg overflow-hidden h-96 bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20">
-            <img src={event.bannerUrl || "/placeholder.svg"} alt={event.title} className="w-full h-full object-cover" />
+          <div className="mb-6 sm:mb-8 rounded-lg overflow-hidden h-56 sm:h-80 md:h-96 bg-gradient-to-br from-primary/20 to-accent/20 border border-primary/20">
+            <img
+              src={event.bannerUrl || "/placeholder.svg"}
+              alt={event.title}
+              className="w-full h-full object-cover"
+            />
           </div>
         )}
 
         {/* Title and Category */}
-        <div className="mb-8">
-          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full capitalize mb-4">
+        <div className="mb-8 text-center sm:text-left">
+          <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs sm:text-sm font-semibold rounded-full capitalize mb-3 sm:mb-4">
             {event.category}
           </span>
-          <h1 className="text-5xl font-bold text-foreground mb-4 text-balance">{event.title}</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4 text-balance leading-tight">
+            {event.title}
+          </h1>
         </div>
 
         {/* Event Info Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-          <Card className="p-6 border border-border">
-            <div className="flex items-start gap-4">
-              <Calendar className="w-6 h-6 text-primary mt-1" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10 sm:mb-12">
+          <Card className="p-4 sm:p-6 border border-border">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary mt-1" />
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Date & Time</p>
-                <p className="font-semibold text-foreground">{formattedDate}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Date & Time</p>
+                <p className="font-semibold text-sm sm:text-base">{formattedDate}</p>
               </div>
             </div>
           </Card>
 
-          <Card className="p-6 border border-border">
-            <div className="flex items-start gap-4">
-              <MapPin className="w-6 h-6 text-accent mt-1" />
+          <Card className="p-4 sm:p-6 border border-border">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-accent mt-1" />
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Location</p>
-                <p className="font-semibold text-foreground">{event.venue}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Location</p>
+                <p className="font-semibold text-sm sm:text-base">{event.venue}</p>
               </div>
             </div>
           </Card>
 
-          <Card className="p-6 border border-border">
-            <div className="flex items-start gap-4">
-              <Users className="w-6 h-6 text-primary mt-1" />
+          <Card className="p-4 sm:p-6 border border-border">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary mt-1" />
               <div>
-                <p className="text-sm text-muted-foreground mb-1">Attendees</p>
-                <p className="font-semibold text-foreground">{event.attendees.length} registered</p>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-1">Attendees</p>
+                <p className="font-semibold text-sm sm:text-base">
+                  {event.attendees.length} registered
+                </p>
               </div>
             </div>
           </Card>
         </div>
 
         {/* Description */}
-        <Card className="p-8 border border-border mb-8">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">About This Event</h2>
-          <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">{event.description}</p>
+        <Card className="p-6 sm:p-8 border border-border mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">
+            About This Event
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed whitespace-pre-wrap">
+            {event.description}
+          </p>
         </Card>
 
         {/* Organizer */}
-        <Card className="p-8 border border-border mb-8">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Organized By</h2>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-lg font-semibold text-primary">{event.createdBy.name.charAt(0)}</span>
+        <Card className="p-6 sm:p-8 border border-border mb-8">
+          <h2 className="text-xl sm:text-2xl font-semibold text-foreground mb-3 sm:mb-4">
+            Organized By
+          </h2>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-base sm:text-lg font-semibold text-primary">
+                {event.createdBy.name.charAt(0)}
+              </span>
             </div>
             <div>
-              <p className="font-semibold text-foreground">{event.createdBy.name}</p>
-              <p className="text-sm text-muted-foreground">{event.createdBy.email}</p>
+              <p className="font-semibold text-sm sm:text-base text-foreground">
+                {event.createdBy.name}
+              </p>
+              <p className="text-xs sm:text-sm text-muted-foreground">{event.createdBy.email}</p>
             </div>
           </div>
         </Card>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 sticky bottom-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sticky bottom-4">
           {isRegistered ? (
             <Button
               variant="outline"
               size="lg"
               onClick={handleUnregister}
-              className="flex-1 md:flex-none bg-transparent"
+              className="flex-1 bg-transparent text-sm sm:text-base"
             >
               Unregister from Event
             </Button>
           ) : (
-            <Button size="lg" onClick={handleRegister} className="flex-1 md:flex-none bg-primary hover:bg-primary/90">
+            <Button
+              size="lg"
+              onClick={handleRegister}
+              className="flex-1 bg-primary hover:bg-primary/90 text-sm sm:text-base"
+            >
               Register for Event
             </Button>
           )}
-          <Button variant="outline" size="lg" className="gap-2 bg-transparent">
+          <Button
+            variant="outline"
+            size="lg"
+            className="gap-2 bg-transparent text-sm sm:text-base"
+          >
             <Share2 className="w-4 h-4" />
             Share
           </Button>
